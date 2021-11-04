@@ -35,22 +35,20 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     }
 
     date = new Date(date).getTime();
-    numberOfPercent = numberOfPercent / 100;
+    numberOfPercent = (numberOfPercent / 100) / 12;
     const today = new Date().getTime();
     const creditBody = numberOfAmount - numberOfContribution;
     const creditTimeMounth = Math.floor(((date - today) / (1000 * 3600 * 24)) / 30);
 
-    let mountlyContribution = creditBody * ((numberOfPercent * 2) / (((1 + numberOfPercent) ** creditTimeMounth) - 1));
+    let mountlyContribution = creditBody * ((numberOfPercent + (numberOfPercent / (((1 + numberOfPercent) ** creditTimeMounth) - 1))));
 
-    totalAmount = (mountlyContribution * creditTimeMounth) + numberOfContribution;
+    totalAmount = (mountlyContribution * creditTimeMounth);
 
     if (creditBody === 0) {
         return 0;
     } else {
-        return totalAmount.toFixed(2);
+        return +totalAmount.toFixed(2);
     }
 
 
 }
-
-calculateTotalMortgage(10, 0, 50000, '11/04/2024')
