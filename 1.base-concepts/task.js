@@ -50,7 +50,3 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         return +totalAmount.toFixed(2);
     }
 }
-
-function inputValue() {
-    console.log(document.getElementById('date').value)
-}
