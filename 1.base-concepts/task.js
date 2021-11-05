@@ -24,13 +24,13 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     let numberOfPercent = +percent;
     let numberOfContribution = +contribution;
     let numberOfAmount = +amount;
-    if (numberOfPercent !== 0 && !numberOfPercent) {
+    if (isNaN(numberOfPercent)) {
         return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
     }
-    if (numberOfContribution !== 0 && !numberOfContribution) {
+    if (isNaN(numberOfContribution)) {
         return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
     }
-    if (numberOfAmount !== 0 && !numberOfAmount) {
+    if (isNaN(numberOfAmount)) {
         return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
     }
 
@@ -49,6 +49,8 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     } else {
         return +totalAmount.toFixed(2);
     }
+}
 
-
+function inputValue() {
+    console.log(document.getElementById('date').value)
 }
