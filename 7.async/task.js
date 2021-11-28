@@ -70,7 +70,7 @@ class AlarmClock {
     }
 
     printAlarms() {
-        this.alarmCollection.forEach(el => console.log(el.id + '-' + el.time))
+        this.alarmCollection.forEach(el => console.log(el.id + '-' + el.time));
     }
 
     clearAlarms() {
@@ -81,28 +81,31 @@ class AlarmClock {
 
 
 //2
-const alarm = new AlarmClock();
-const date = new Date();
-const hours = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
-const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
 
-const callback1 = () => {
-    console.log('Wake Up');
-    setTimeout(() => { alarm.removeClock(1) }, 5000)
-}
+function testCase() {
+    const alarm = new AlarmClock();
+    const date = new Date();
+    const hours = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
 
-const callback2 = () => {
-    console.log('Wake up, while you can still have a breakfast');
-    alarm.removeClock(2);
-}
-const callback3 = () => {
-    console.log('OK, now you cant have a breakfast, WAKE UP');
-    alarm.stop();
-    alarm.clearAlarms();
+    const callback1 = () => {
+        console.log('Wake Up');
+        setTimeout(() => { alarm.removeClock(1) }, 5000);
+    }
+
+    const callback2 = () => {
+        console.log('Wake up, while you can still have a breakfast');
+        alarm.removeClock(2);
+    }
+    const callback3 = () => {
+        console.log('OK, now you cant have a breakfast, WAKE UP');
+        alarm.stop();
+        alarm.clearAlarms();
+        alarm.printAlarms();
+    }
+    alarm.addClock(hours + ':' + minutes, callback1, 1);
+    alarm.addClock(hours + ':' + (+minutes + 1), callback2, 2);
+    alarm.addClock(hours + ':' + (+minutes + 2), callback3, 3);
     alarm.printAlarms();
+    alarm.start();
 }
-alarm.addClock(hours + ':' + minutes, callback1, 1);
-alarm.addClock(hours + ':' + (+minutes + 1), callback2, 2);
-alarm.addClock(hours + ':' + (+minutes + 2), callback3, 3);
-alarm.printAlarms();
-alarm.start();
