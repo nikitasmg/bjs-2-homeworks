@@ -39,7 +39,7 @@ class AlarmClock {
     }
 
     checkClock(alarm) {
-        if (alarm.time === this.getCurrentFormarredTime()) {
+        if (alarm.time === this.getCurrentFormattedTime()) {
             alarm.callback();
         }
     }
