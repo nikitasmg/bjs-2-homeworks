@@ -49,7 +49,7 @@ class AlarmClock {
             this.timerId = setInterval(() => {
                 this.alarmCollection.forEach(alarm => {
                     if (alarm.checkClock()) {
-                        alarm.callback();
+                        alarm.checkClock();
                     }
                 })
             }, 1000);
