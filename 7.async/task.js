@@ -7,29 +7,24 @@ class AlarmClock {
     addClock(time, callback, id) {
         if (!id) {
             throw new Error('Параметр id не передан');
+        }
+        if (this.alarmCollection.some(el => el.id === id)) {
+            console.error('Данный id уже используется');
         } else {
-            try {
-                if (this.alarmCollection.some(el => el.id === id)) {
-                    console.error('Данный id уже используется');
-                } else {
-                    this.alarmCollection.push({
-                        'id': id,
-                        callback,
-                        'time': time,
-                    })
-                }
-            } catch (e) {
-                return e;
-            }
+            this.alarmCollection.push({
+                'id': id,
+                callback,
+                'time': time,
+            })
         }
     }
 
 
+
     removeClock(id) {
-        if (this.alarmCollection.some(el => el.id === id)) {
-            const idNeedToDelete = this.alarmCollection.find(el => el.id === id);
-            const indexId = this.alarmCollection.indexOf(idNeedToDelete);
-            this.alarmCollection.splice(indexId, 1);
+        const needToDelete = this.alarmCollection.indexOf(el => el.id === id);
+        if (needToDelete) {
+            this.alarmCollection.splice(needToDelete, 1);
             return true;
         } else {
             return false;
@@ -44,8 +39,8 @@ class AlarmClock {
     }
 
     checkClock(alarm) {
-        if (alarm.time === this.getCurrentFormarredTime(alarm)) {
-            return alarm.callback;
+        if (alarm.time === this.getCurrentFormarredTime()) {
+            alarm.callback();
         }
     }
 
@@ -53,7 +48,7 @@ class AlarmClock {
         if (this.timerId === null) {
             this.timerId = setInterval(() => {
                 this.alarmCollection.forEach(alarm => {
-                    if (alarm.time === this.getCurrentFormattedTime()) {
+                    if (alarm.checkClock()) {
                         alarm.callback();
                     }
                 })
