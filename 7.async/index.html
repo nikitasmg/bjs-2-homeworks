@@ -1,24 +1,73 @@
-<html lang="en">
-  <head>
+<html lang="ru">
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Только CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Асинхронность</title>
-  </head>
-  <body>
-    <header class="header">
-      <div class="logo__container">
-        <a href="https://netology.ru/" class="logo__link"></a>
-      </div>
-      <h1 class="header__title">Домашнее задание к лекции 8. «Асинхронность»</h1>
+</head>
+
+<body>
+
+    <header class="container d-flex mb-5 sticky-top">
+        <h1 class="h1 mx-auto text-uppercase">Будильник</h1>
     </header>
-    <main class="content">
-      <div class="card card-wide">
-        <h2>Результаты работы функций можно увидеть в консоли браузера.</h2>
-      </div>
-    </main>
-    <script src="task.js"></script>
-    <script src="main.js"></script>
-  </body>
+    <div class="container">
+        <main class="main">
+            <h2 class="main__title">Поставь будильник</h2>
+
+            <form>
+                <div class="d-flex flex-column mb-3 align-items-start">
+                    <label class="input-label mb-2" for="time-input"> Выберите время</label>
+                    <input type="time" id="time-input" class="form-control mb-2 w-25">
+                    <label class="form-label" for="text-input">Напишите фразу</label>
+                    <input type="text" id="text-input" class="form-control  w-50">
+                </div>
+                <button class="btn btn-primary" id='btn'>Поставить будильник</button>
+                <button class="btn btn-md btn-danger shadow-sm text-uppercase" id="btn-stop"> Стоп</button>
+            </form>
+
+            <button type="button" id="modal-open" class="btn btn-light border"> Посмотреть все будильники</button>
+
+            <div class="modal closed" id="alarm-modal" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                Ваши будильники
+                            </h5>
+                            <button type="button" class="btn" data-dismiss="modal" aria-label="Close" id="modal-close-cross">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <div class="alarm">
+                                <span class="time">12:33</span>
+                                <span class="text">Пора вставать</span>
+                            </div> -->
+                            <!-- <div class="alarm">
+                                <span class="time">12:33</span>
+                                <span class="text">Пора вставать</span>
+                            </div>
+                            <div class="alarm">
+                                <span class="time">12:33</span>
+                                <span class="text">Пора вставать</span>
+                            </div> -->
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal-close">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+        </main>
+        </div>
+        <script src="task.js"></script>
+        <script src="main.js"></script>
+        <!-- Пакет JavaScript с Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
 </html>
