@@ -6,43 +6,45 @@ function cachingDecoratorNew(func) {
         if (idx !== -1) {
             console.log(`Из кэша: ${cache[idx].value}`);
             return "Из кэша: " + cache[idx].value;
-        } else if (cache.length <= 5) {
-            let result = func(...args);
-            cache.push({
-                key: key,
-                value: result,
-            });
-            console.log(`Вычисляем: ${result}`);
-            return "Вычисляем: " + result;
-        } else {
+        }
+
+        if (cache.length >= 5) {
             cache.shift();
         }
+
+        let result = func(...args);
+        cache.push({
+            key: key,
+            value: result,
+        });
+        console.log(`Вычисляем: ${result}`);
+        return "Вычисляем: " + result;
     }
+
 }
 
 
-function debounceDecoratorNew(func, delay) {
+function debounceDecoratorNew(func, ms) {
     let flag = false,
         timer;
 
     return function wrapper(...args) {
 
-        if (flag) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                flag = false;
-            }, delay);
+        if (!flag) {
+            func(...args);
+            flag = true;
+            console.log('Сработал синхронный вызов');
             return;
         }
 
-        func(...args);
-        flag = true;
         clearTimeout(timer);
         timer = setTimeout(() => {
             flag = false;
+            func(...args);
+            console.log('Сработал асинхронный вызов')
         }, ms);
-    }
 
+    }
 }
 
 function debounceDecorator2(func, ms) {
@@ -50,23 +52,22 @@ function debounceDecorator2(func, ms) {
         timer;
 
     function wrapper(...args) {
-        wrapper.count.push(args);
-
-        if (flag) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                flag = false;
-            }, ms);
+        wrapper.count++;
+        if (!flag) {
+            func(...args);
+            flag = true;
+            console.log('Сработал синхронный вызов');
             return;
         }
 
-        func(...args);
-        flag = true;
         clearTimeout(timer);
         timer = setTimeout(() => {
             flag = false;
+            func(...args);
+            console.log('Сработал асинхронный вызов')
         }, ms);
+
     }
-    wrapper.count = [];
+    wrapper.count = 0;
     return wrapper;
 }
